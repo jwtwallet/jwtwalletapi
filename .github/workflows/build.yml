@@ -1,0 +1,70 @@
+name: Build Tests
+
+on:
+  merge_group:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Install yarn
+        run: yarn install --immutable
+      - name: Check Linting
+        run: yarn lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v2
+      - name: Enable Corepack
+        run: corepack enable
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Install yarn
+        run: yarn install --immutable
+      - name: Run Typescript Compiler
+        run: yarn tsc --noEmit
+  build:
+    runs-on: ubuntu-latest
+    needs: typecheck
+    name: Build Server Bundle
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: "yarn"
+      - name: Install the dependencies
+        run: yarn install --immutable
+        env:
+          HUSKY: 0
+      - name: Build server bundle
+        run: yarn build
+      - name: Remove node modules
+        run: rm -rf node_modules
+      - name: Install Production Dependencies
+        run: yarn workspaces focus --production
+      - name: Collect Files
+        run: mkdir -p out && cp -r dist .env.default package.json yarn.lock out/
+      - name: Upload the artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: server-bundle
+          path: out
