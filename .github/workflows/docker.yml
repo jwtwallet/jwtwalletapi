@@ -72,6 +72,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
+      attestations: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -105,5 +107,15 @@ jobs:
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
             $(printf 'ghcr.io/${{ env.REPOSITORY_NAME }}@sha256:%s ' *)
       - name: Inspect image
+        id: inspect
         run: |
-          docker buildx imagetools inspect ghcr.io/${{ env.REPOSITORY_NAME }}:${{ steps.meta.outputs.version }}
+          OUTPUT=$(docker buildx imagetools inspect ghcr.io/${{ env.REPOSITORY_NAME }}:${{ steps.meta.outputs.version }} --format "{{json .Manifest.Digest}}"  | xargs)
+          echo "digest=$OUTPUT" >> $GITHUB_OUTPUT
+      - name: Attest Main Branch Builds
+        if: github.ref == 'refs/heads/main'
+        uses: actions/attest-build-provenance@v1
+        id: attest
+        with:
+          subject-name: ghcr.io/${{ env.REPOSITORY_NAME }}
+          subject-digest: ${{ steps.inspect.outputs.digest }}
+          push-to-registry: true
