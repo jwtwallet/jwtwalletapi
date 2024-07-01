@@ -4903,9 +4903,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jwtwallet-nestjs@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "jwtwallet-nestjs@npm:1.0.1"
+"jwtwallet-nestjs@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "jwtwallet-nestjs@npm:1.0.3"
   dependencies:
     "@nestjs/common": "npm:^10.3.10"
     "@nestjs/config": "npm:^3.2.3"
@@ -4915,7 +4915,7 @@ __metadata:
     reflect-metadata: "npm:^0.2.2"
     rxjs: "npm:^7.8.1"
     uuid: "npm:^9.0.0"
-  checksum: 10c0/9e896ef436deab61ce85803a4885c5c868067b5d01a2fd57ac06f9957bbc70519d7691d3f3f3b960ebfe9a7563b371dcc196f2b157372698779c0f46e94133a4
+  checksum: 10c0/4d1548183451b9b0aca519c6b4f9c0afa3c9db284eaddaac91cd22d85d3de08c9883c16bbaa0fd4455288c24fe852e0f9b211ae2bb611636e3c014fbc3026f34
   languageName: node
   linkType: hard
 
@@ -4944,7 +4944,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.0.0"
     eslint-plugin-node: "npm:^11.1.0"
     eslint-plugin-prettier: "npm:^5.0.0"
-    jwtwallet-nestjs: "npm:^1.0.1"
+    jwtwallet-nestjs: "npm:^1.0.3"
     prettier: "npm:^3.0.0"
     reflect-metadata: "npm:^0.2.2"
     rxjs: "npm:^7.8.1"
