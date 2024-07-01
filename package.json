@@ -13,6 +13,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
+    "release": "semantic-release",
     "typechecks": "tsc --noEmit"
   },
   "lint-staged": {
