@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.0.0...v1.1.0) (2024-07-01)
+
+
+### Features
+
+* Added config module ([df6ef60](https://github.com/jwtwallet/jwtwalletapi/commit/df6ef60005613a72b9c4a9b858cae4a58922238a))
+
 # 1.0.0 (2024-07-01)
 
 
