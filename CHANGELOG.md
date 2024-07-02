@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.1.0...v1.2.0) (2024-07-02)
+
+
+### Bug Fixes
+
+* **main:** PORT should be read form env ([c0f9ed9](https://github.com/jwtwallet/jwtwalletapi/commit/c0f9ed98bcf439d3e0f292d0e03043fdf69aa9bc))
+
+
+### Features
+
+* Add JWTWalletModule ([8b0d752](https://github.com/jwtwallet/jwtwalletapi/commit/8b0d752184e8566f40f7f5e606433b120a56e269))
+
 # [1.1.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.0.0...v1.1.0) (2024-07-01)
 
 
