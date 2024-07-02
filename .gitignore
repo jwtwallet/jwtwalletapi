@@ -44,3 +44,4 @@ build
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
+.env.local
