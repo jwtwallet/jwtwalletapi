@@ -8,10 +8,23 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
 import { CommonService } from "../utils/common.service";
 import { User, UserDocument } from "./model/user.model";
+import { UserAccountAccess } from "./model/userAccountAccess.model";
 import { UserAccessLevel } from "./userAccessLevel.enum";
 
 export type UserAbilitiesType = MongoAbility<
-  ["manage" | "read" | "update", UserDocument | "User"]
+  [
+    (
+      | "manage"
+      | "read"
+      | "update"
+      | "create"
+      | "delete"
+      | "invite"
+      | "accept"
+      | "reject"
+    ),
+    UserDocument | "User" | UserAccountAccess | "UserAccountAccess"
+  ]
 >;
 
 @Injectable()
@@ -38,7 +51,31 @@ export class UserService extends CommonService<
 
     // Can read the users within the same account
 
+    can("read", "User", {
+      accounts: {
+        $elemMatch: {
+          userId: user._id
+        }
+      }
+    });
+
+    can("read", "UserAccountAccess", {
+      userId: user._id
+    });
+
     user.accounts.forEach((account) => {
+      if (account.invite) {
+        can("accept", "UserAccountAccess", {
+          accountId: account.accountId,
+          userId: user._id
+        });
+        can("delete", "UserAccountAccess", {
+          accountId: account.accountId,
+          userId: user._id
+        });
+        return;
+      }
+
       can("read", "User", {
         accounts: {
           $elemMatch: {
@@ -46,6 +83,22 @@ export class UserService extends CommonService<
           }
         }
       });
+
+      if (account.access === UserAccessLevel.Write) {
+        can("read", "UserAccountAccess", {
+          accountId: account.accountId
+        });
+        can("update", "UserAccountAccess", {
+          accountId: account.accountId
+        });
+        can("create", "UserAccountAccess", {
+          accountId: account.accountId,
+          invite: true
+        });
+        can("delete", "UserAccountAccess", {
+          accountId: account.accountId
+        });
+      }
     });
 
     return build();
@@ -63,15 +116,18 @@ export class UserService extends CommonService<
       .exec();
   }
 
-  addAccount(
+  addAccountAsCreator(
     user: UserDocument,
     accountId: Types.ObjectId,
     level: UserAccessLevel
   ) {
-    user.accounts.push({
-      accountId,
-      access: level
-    });
+    const newAccountAccess = new UserAccountAccess();
+    newAccountAccess.accountId = accountId;
+    newAccountAccess.access = level;
+    newAccountAccess.invite = false;
+    newAccountAccess.userId = user._id;
+
+    user.accounts.push(newAccountAccess);
 
     return user.save();
   }

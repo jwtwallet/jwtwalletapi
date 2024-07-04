@@ -1,11 +1,28 @@
 import { ForbiddenError } from "@casl/ability";
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Post,
+  SerializeOptions,
+  UseInterceptors
+} from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CurrentUser } from "../auth/current-user.decorator";
 import { UserDocument } from "../user/model/user.model";
 import { UserAccessLevel } from "../user/userAccessLevel.enum";
 import { AccountService } from "./account.service";
 import { Account } from "./model/account.model";
 
+@ApiTags("account")
+@UseInterceptors(ClassSerializerInterceptor)
+@SerializeOptions({
+  excludeExtraneousValues: true,
+  excludePrefixes: ["_", "$"],
+  enableCircularCheck: true
+})
+@ApiBearerAuth()
 @Controller("account")
 export class AccountController {
   constructor(private accountService: AccountService) {}

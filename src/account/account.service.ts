@@ -57,7 +57,7 @@ export class AccountService extends CommonService<
     user: UserDocument,
     role: UserAccessLevel
   ) {
-    return this.userService.addAccount(user, account._id, role);
+    return this.userService.addAccountAsCreator(user, account._id, role);
   }
 
   create(account: Account): AccountDocument {
