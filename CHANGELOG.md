@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.3.0...v1.4.0) (2024-07-04)
+
+
+### Features
+
+* Added user and auth module ([deb3c36](https://github.com/jwtwallet/jwtwalletapi/commit/deb3c366d877f831493b08024fe1994ad9b53ff2))
+
 # [1.3.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.2.0...v1.3.0) (2024-07-04)
 
 
