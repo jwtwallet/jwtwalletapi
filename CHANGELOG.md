@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.2.0...v1.3.0) (2024-07-04)
+
+
+### Features
+
+* **app.module:** Added mongoose module ([293c15e](https://github.com/jwtwallet/jwtwalletapi/commit/293c15e5279866155444d949d4f82b22e1ca1767))
+
 # [1.2.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.1.0...v1.2.0) (2024-07-02)
 
 
