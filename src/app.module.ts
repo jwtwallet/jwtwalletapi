@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { APP_FILTER, APP_GUARD } from "@nestjs/core";
 import { MongooseModule } from "@nestjs/mongoose";
 import { JWTWalletModule } from "jwtwallet-nestjs";
+import { AccountModule } from "./account/account.module";
 import { AppService } from "./app.service";
 import { AuthExceptionFilter } from "./auth/auth.exceptionFilter";
 import { AuthGuard } from "./auth/auth.guard";
@@ -34,7 +35,8 @@ import { UserModule } from "./user/user.module";
       inject: [ConfigService]
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    AccountModule
   ],
   providers: [
     AppService,

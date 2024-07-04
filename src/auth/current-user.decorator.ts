@@ -1,9 +1,8 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import { Request } from "express";
+import { UserDocument } from "../user/model/user.model";
 
-import { User } from "../user/model/user.model";
-
-export const CurrentUser = createParamDecorator<User>(
+export const CurrentUser = createParamDecorator<UserDocument>(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest<Request>();
     return request.user;
