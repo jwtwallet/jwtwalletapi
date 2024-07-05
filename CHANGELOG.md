@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.4.0...v1.5.0) (2024-07-05)
+
+
+### Features
+
+* Added swagger and account apis ([673bfca](https://github.com/jwtwallet/jwtwalletapi/commit/673bfcab899d4b14881380d14ee30fcc723d2154))
+* initial account module code ([d7649ab](https://github.com/jwtwallet/jwtwalletapi/commit/d7649ab98831df7161433ae810e0646ee0a46cdc))
+
 # [1.4.0](https://github.com/jwtwallet/jwtwalletapi/compare/v1.3.0...v1.4.0) (2024-07-04)
 
 
