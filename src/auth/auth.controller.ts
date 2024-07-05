@@ -8,6 +8,7 @@ import {
   SerializeOptions,
   UseInterceptors
 } from "@nestjs/common";
+import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Require_id } from "mongoose";
 import { User } from "../user/model/user.model";
 import { Public } from "./auth.guard";
@@ -18,6 +19,7 @@ import { MeResponseDto } from "./dto/meResponse.dto";
 import { RegisterUserDto } from "./dto/registerUser.dto";
 import { TokenResponse } from "./dto/tokenResponse.dto";
 
+@ApiTags("auth")
 @Controller("auth")
 @UseInterceptors(ClassSerializerInterceptor)
 @SerializeOptions({
@@ -30,6 +32,11 @@ export class AuthController {
 
   logger = new Logger(AuthController.name);
 
+  @ApiResponse({
+    status: 200,
+    description: "Login successful",
+    type: TokenResponse
+  })
   @Public()
   @Post("login")
   async login(@Body() body: LoginPasswordDto) {
@@ -62,6 +69,7 @@ export class AuthController {
     return tokenResponse;
   }
 
+  @ApiBearerAuth()
   @Get("me")
   me(@CurrentUser() user: Require_id<User>) {
     const meResponse = new MeResponseDto();
